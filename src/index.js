@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { randFloat, seededRandom, randInt } from 'three/src/math/MathUtils';
+import Stats from 'three/addons/libs/stats.module.js';
+import { GUI } from 'three/addons/libs/lil-gui.module.min.js';
 
 const clock = new THREE.Clock();
 
@@ -13,7 +15,7 @@ const targetWidth = window.innerWidth;
 const targetHeight = window.innerHeight;
 
 const fogColour = new THREE.Vector4(0.25 * 0.5, 0.1 * 0.5, 0.2 * 0.5, 1.0);
-const fogDensity = 0.5;
+const fogDensity = 2.5;
 
 const sunColour = new THREE.Vector3(1.0, 0.5, 0.3);
 const sunFocus = 6.0;
@@ -54,16 +56,20 @@ for (var i = 0; i < numWaves; i++) {
 // INIT
 
 // renderer and scenes
-var canvas = document.getElementById('canvas');
-var scene = new THREE.Scene();
-var postScene = new THREE.Scene();
+var canvas = document.querySelector("canvas");
 var renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
   depthBuffer: true
 });
+var scene = new THREE.Scene();
+var postScene = new THREE.Scene();
 renderer.setClearColor(0x101010);     // set background colour
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(targetWidth, targetHeight);
-canvas.appendChild(renderer.domElement);
+// canvas.appendChild(renderer.domElement);
+
+// var stats = new Stats();
+// document.body.appendChild(stats.dom);
 
 // render target
 const format = THREE.DepthFormat;
@@ -77,15 +83,15 @@ target.depthTexture.format = format;
 target.depthTexture.type = type;
 
 // cameras and controls
-var camera = new THREE.PerspectiveCamera(30,1,0.1,4000); // view angle, aspect ratio, near, far
+var camera = new THREE.PerspectiveCamera(30, 1, 0.1, 4000); // view angle, aspect ratio, near, far
 camera.position.set(150, 30, 500);
 camera.lookAt(0,0,0);
 scene.add(camera);
 
 var postCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
-var controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;
+// var controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true;
 
 // lighting
 var vcsPositionSun = new THREE.Vector3();
@@ -106,27 +112,12 @@ vcsPositionStar3.applyMatrix4(camera.matrixWorldInverse);
 
 // skybox texture
 var textureLoader = new THREE.TextureLoader();
-var posxTexture = textureLoader.load( "textures/space-posx.png" );
-var posyTexture = textureLoader.load( "textures/space-posy.png" );
-var poszTexture = textureLoader.load( "textures/space-posz.png" );
-var negxTexture = textureLoader.load( "textures/space-negx.png" );
-var negyTexture = textureLoader.load( "textures/space-negy.png" );
-var negzTexture = textureLoader.load( "textures/space-negz.png" );
-
-var minFilter = THREE.LinearFilter;
-var magFilter = THREE.LinearFilter;
-posxTexture.magFilter = magFilter;
-posxTexture.minFilter = minFilter;
-posyTexture.magFilter = magFilter;
-posyTexture.minFilter = minFilter;
-poszTexture.magFilter = magFilter;
-poszTexture.minFilter = minFilter;
-negxTexture.magFilter = magFilter;
-negxTexture.minFilter = minFilter;
-negyTexture.magFilter = magFilter;
-negyTexture.minFilter = minFilter;
-negzTexture.magFilter = magFilter;
-negzTexture.minFilter = minFilter;
+var posxTexture = textureLoader.load( "./assets/space-posx.png" );
+var posyTexture = textureLoader.load( "./assets/space-posy.png" );
+var poszTexture = textureLoader.load( "./assets/space-posz.png" );
+var negxTexture = textureLoader.load( "./assets/space-negx.png" );
+var negyTexture = textureLoader.load( "./assets/space-negy.png" );
+var negzTexture = textureLoader.load( "./assets/space-negz.png" );
 
 // adapt to window resize
 function resize() {
@@ -141,9 +132,9 @@ window.addEventListener('resize',resize);
 resize();
 
 // disable scrollbar
-window.onscroll = function () {
-  window.scrollTo(0,0);
-}
+// window.onscroll = function () {
+//   window.scrollTo(0,0);
+// }
 
 //////////////////////////////////////////////////////////////////////
 //  shader materials
@@ -222,7 +213,7 @@ var postMaterial = new THREE.ShaderMaterial( {
 //////////////////////////////////////////////////////////////////////
 // objects
 
-var waterGeometry = new THREE.PlaneGeometry(1250, 1250, 1000, 1000);
+var waterGeometry = new THREE.PlaneGeometry(1250, 1250, 400, 400);
 waterGeometry.rotateX(-Math.PI / 2.0)
 waterGeometry.computeVertexNormals();
 var waterObject = new THREE.Mesh( waterGeometry, waterMaterial );
@@ -283,6 +274,10 @@ postScene.add( postQuad );
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // UPDATE CALLBACK
+// const gui = new GUI( { width: 300 } );
+// gui.add(params, 'format', formats).onChange(setupRenderTarget);
+// gui.add(params, 'type', types).onChange(setupRenderTarget);
+// gui.open();<div id="front-page-filler"> </div>
 
 // movement - please calibrate these values
 const xSpeed = 3.0;
@@ -301,8 +296,6 @@ function onDocumentKeyDown(event) {
       sunPosWcs.x += xSpeed;
     }
 };
-
-console.log(vcsPositionSun);
 
 function updateSceneUniforms() {
   time = clock.getElapsedTime();
@@ -375,6 +368,8 @@ function animate() {
 
     renderer.setRenderTarget( null );
     renderer.render( postScene, postCamera );
+
+    // stats.update();
 }
 
 animate();
