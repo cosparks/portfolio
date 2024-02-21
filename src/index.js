@@ -15,7 +15,7 @@ const targetWidth = window.innerWidth;
 const targetHeight = window.innerHeight;
 
 const fogColour = new THREE.Vector4(0.25 * 0.5, 0.1 * 0.5, 0.2 * 0.5, 1.0);
-const fogDensity = 2.5;
+const fogDensity = 3.5;
 
 const sunColour = new THREE.Vector3(1.0, 0.5, 0.3);
 const sunFocus = 6.0;

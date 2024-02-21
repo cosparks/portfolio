@@ -22,7 +22,10 @@
             position: fixed;
             top: 0;
             left: 0;
-            z-index: -9999;
+            z-index: -1;
+        }
+        .container-fluid {
+            max-width: 1000px;
         }
         text {
             color: white
@@ -50,6 +53,12 @@
             font-style: normal;
             color: white;
             justify-content: center;
+        }
+        h3 {
+            color: white;
+        }
+        h4 {
+            color: white;
         }
         p {
             color: white;
@@ -80,22 +89,19 @@
         #front-page-filler {
             height: 100vh;
         }
-        #projects-section {
-            height: 100vh;
-            display: flex;
-        }
         #projects-sub-section {
             display: flex;
             background-color: rgba(23, 23, 23, 0.447);
         }
         .video-container {
             position: relative;
-            width: 800px; /* Adjust this width to match the iframe width */
-            height: 450px; /* Adjust this height to match the iframe height */
-            margin: 0 auto; /* Center horizontally */
-            text-align: center; /* Center iframe within container */
+            width: 80%; /* 80% of the parent container's width */
+            height: 0; /* Height will be determined by the aspect ratio */
+            padding-bottom: 45.0%;
+            margin: 0 auto;
+            text-align: center;
+            overflow: hidden; /* Ensure the video doesn't overflow */
         }
-
         .video-container iframe {
             position: absolute;
             top: 0;
@@ -103,7 +109,80 @@
             width: 100%;
             height: 100%;
         }
-    </style>
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+        .nested-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .gallery-item-quarter {
+            padding: 1%;
+            flex-basis: calc(25% - 2%);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .gallery-item-half {
+            padding: 1%;
+            flex-basis: calc(50% - 2%);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .gallery-item-full {
+            flex-basis: calc(100%);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+        .gallery-item-full img, .gallery-item-full video {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+        }
+        .gallery-item-quarter img, .gallery-item-quarter video, .gallery-item-half img, .gallery-item-half video {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+        .gallery-caption {
+            margin-top: 10px;
+            color: lightslategrey;
+            font-size: 16px;
+            text-align: left;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .button-image {
+            width: 75%;
+            max-width: 500px;
+            aspect-ratio: 3/2;
+            display: inline-block;
+            text-decoration: none;
+            background-image: url('assets/repo-riot.png');
+            background-size: cover;
+            padding: 20px 30px;
+            color: white;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        .button-image:hover {
+            transform: scale(1.05);
+        }
+        .project {
+            text-align: center;
+       </style>
 </head>
 <body>
 <div class="container-fluid pt-3" id="top">
@@ -111,10 +190,10 @@
         <div class="col-sm-4 padding-top">
             <ul class="nav justify-content-center">
             <li class="nav-item">
-                <a class="nav-link" href="#projects-section">projects</a>
+                <a class="nav-link" href="#projects">projects</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="media.html">about</a>
+                <a class="nav-link" href="#about">about</a>
             </li>
             </ul>
         </div>
@@ -129,7 +208,7 @@
                     <a class="nav-link" href="https://www.github.com/cosparks">github</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">contact</a>
+                    <a class="nav-link" href="#contact">contact</a>
                 </li>
             </ul>
         </div>
@@ -137,19 +216,90 @@
 
     <!-- FRONT PAGE FILLER -->
     <div id="front-page-filler"></div>
+
     <!-- PROJECTS -->
-    <div class="container-fluid" style="width:100vw; height:100vh">
-        <h2>projects</h2>
-        <div class="container-fluid" style="background-color: rgba(23, 23, 23, 0.447);">
-            <h2>balloonium</h2>
-            <p>Physics based game where you play as a balloon trying to escape a cave.</p>
+    <div class="container-fluid" id="projects">
+        <h1>projects</h1>
+        <br>
+        <div class="container-fluid" style="background-color: rgba(12, 12, 12, 0.653);">
+            <h2>Balloonium</h2>
+            <p>
+                Physics based game where you play as a balloon trying to escape a cave. This game got its start as a team project for UBC's CPSC 
+                427 video game programming course. My team and I have since decided to continue working on the game and are aiming to release it 
+                some time in early 2025.
+            </p>
             <div class="gallery-item-full">
                 <div class="video-container">
-                    <iframe width="800" height="450" src="https://www.youtube.com/embed/lzcgCclYAKM" frameborder="0" allowfullscreen="true"></iframe>
+                    <iframe src="https://www.youtube.com/embed/lzcgCclYAKM" frameborder="0" allowfullscreen=""></iframe>
                 </div>
             </div>
+            <br>
+            <h4>Procedural level generation and asset placement</h4>
+            <p>Generate level gridmap using WFC</p>
+            <div class="gallery">
+                <div class="gallery-item-quarter">
+                    <img src="assets/input-example.png" style="image-rendering: pixelated; image-rendering: crisp-edges;">
+                </div>
+                <div class="gallery-item-quarter">
+                    <img src="assets/raw-gridmap.png" style="image-rendering: pixelated; image-rendering: crisp-edges;">
+                </div>
+                <div class="gallery-item-quarter">
+                    <img src="assets/gridmap-data-pre.png">
+                </div>
+                <div class="gallery-item-quarter">
+                    <img src="assets/gridmap-data-post.png">
+                </div>
+            </div>
+            <p>Draw tunnels on level gridmap, then use marching squares to place level tiles (two different styles).</p>
+            <div class="gallery">
+                <div class="gallery-item-half">
+                    <img src="assets/tiled-stone.png">
+                </div>
+                <div class="gallery-item-half">
+                    <img src="assets/tiled-void.png">
+                </div>
+            </div>
+            <p>Place assets: enemies, obstacles, resources and interaction zones; and add parallax background.</p>
+            <div class="gallery">
+                <div class="gallery-item-half">
+                    <img src="assets/level-final-stone.png">
+                </div>
+                <div class="gallery-item-half">
+                    <img src="assets/level-final-void.png">
+                </div>
+            </div>
+            <br>
+        </div>
+        <br>
+        <div class="container-fluid" style="background-color: rgba(23, 23, 23, 0.447);">
             <h2>repo riot</h2>
+            <p>Global Game Jam 2024 submission. Game overview and playable demo available via the link below.</p>
+            <div class="button-container">
+                <a href="https://usualvirtue.itch.io/reporiot" class="button-image"></a>
+            </div>
+            <br>
+        </div>
+        <br>
+        <div class="container-fluid" style="background-color: rgba(23, 23, 23, 0.447);">
             <h2>trypdeck</h2>
+            <p>Interactive art installation</p>
+            <div class="gallery">
+                <div class="gallery-item-full">
+                    <img src="assets/trypdeck.png">
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+    <br>
+    <!-- ABOUT -->
+    <div class="container-fluid" style="min-height:100vh;" id="about">
+        <h2>about</h2>
+    </div>
+    <div class="container-fluid" id="contact">
+        <h2>contact</h2>
+        <div class="container-fluid" style="min-height:50vh; background-color: rgba(0, 0, 0, 0.132);">
+            
         </div>
     </div>
   </div>
