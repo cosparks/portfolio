@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Colby Sparks</title>
+    <title>colby sparks</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -14,203 +14,42 @@
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <style>
-        canvas {
-            width: 100vw;
-            height: 100vh;
-            display: block;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-        .container-fluid {
-            max-width: 1000px;
-        }
-        text {
-            color: white
-        }
-        a.nav-link { opacity: 0.5; }
-        a.nav-link:hover { opacity: 1; }
-
-        a.btn:hover { background-color: black; color: white; }
-
-        .bg {
-            background-color: black;
-        }
-
-        .padding-top {
-            padding-top: 40px;
-        }
-        h1 {
-            font-weight: normal;
-            font-style: normal;
-            color: white;
-            justify-content: center;
-        }
-        h2 {
-            font-weight: normal;
-            font-style: normal;
-            color: white;
-            justify-content: center;
-        }
-        h3 {
-            color: white;
-        }
-        h4 {
-            color: white;
-        }
-        p {
-            color: white;
-        }
-        .nav a {
-            font-weight: normal;
-            font-style: normal;
-            color: white;
-        }
-        .nav a:hover {
-            color:grey;
-        }
-        .btn {
-            background-color: hotpink;
-        }
-        .btn  {
-            color: black;
-        }
-        #page-title {
-            display: flex;
-            justify-content: center;
-            vertical-align: center;
-            align-items: center;
-        }
-        #title-content {
-            flex: 0 0 240px;
-        }
-        #front-page-filler {
-            height: 100vh;
-        }
-        #projects-sub-section {
-            display: flex;
-            background-color: rgba(23, 23, 23, 0.447);
-        }
-        .video-container {
-            position: relative;
-            width: 80%; /* 80% of the parent container's width */
-            height: 0; /* Height will be determined by the aspect ratio */
-            padding-bottom: 45.0%;
-            margin: 0 auto;
-            text-align: center;
-            overflow: hidden; /* Ensure the video doesn't overflow */
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        .gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            align-items: flex-start;
-        }
-        .nested-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: flex-start;
-        }
-        .gallery-item-quarter {
-            padding: 1%;
-            flex-basis: calc(25% - 2%);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-        }
-        .gallery-item-half {
-            padding: 1%;
-            flex-basis: calc(50% - 2%);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-        }
-        .gallery-item-full {
-            flex-basis: calc(100%);
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-        }
-        .gallery-item-full img, .gallery-item-full video {
-            width: 100%;
-            height: auto;
-            object-fit: cover;
-        }
-        .gallery-item-quarter img, .gallery-item-quarter video, .gallery-item-half img, .gallery-item-half video {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 1 / 1;
-            object-fit: cover;
-        }
-        .gallery-caption {
-            margin-top: 10px;
-            color: lightslategrey;
-            font-size: 16px;
-            text-align: left;
-        }
-        .button-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .button-image {
-            width: 75%;
-            max-width: 500px;
-            aspect-ratio: 3/2;
-            display: inline-block;
-            text-decoration: none;
-            background-image: url('assets/repo-riot.png');
-            background-size: cover;
-            padding: 20px 30px;
-            color: white;
-            border-radius: 8px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-        .button-image:hover {
-            transform: scale(1.05);
-        }
-        .project {
-            text-align: center;
-       </style>
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <div class="container-fluid pt-3" id="top">
     <div class="row">
         <div class="col-sm-4 padding-top">
-            <ul class="nav justify-content-center">
-            <li class="nav-item">
-                <a class="nav-link" href="#projects">projects</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#about">about</a>
-            </li>
-            </ul>
+            <div class="navbar">
+                <div class="dropdown">
+                    <button class="dropbtn">projects
+                        <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                      <a href="#balloonium" class="smooth-scroll">balloonium</a>
+                      <a href="#reporiot" class="smooth-scroll">repo riot</a>
+                      <a href="#trypdeck" class="smooth-scroll">trypdeck</a>
+                    </div>
+                  </div>
+                <div class="nav-item">
+                    <a class="nav-link smooth-scroll" href="#about">about</a>
+                </div>
+            </div>
         </div>
 
         <div id="page-title" class="col-sm-4 padding-top">
-            <div id="title-content"><h1>Colby Sparks</h1></div>
+            <div id="title-content"><h1>colby sparks</h1></div>
         </div>
 
         <div class="col-sm-4 padding-top">
-            <ul class="nav justify-content-center">
-                <li class="nav-item">
+            <div class="navbar">
+                <div class="nav-item">
                     <a class="nav-link" href="https://www.github.com/cosparks">github</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">contact</a>
-                </li>
-            </ul>
+                </div>
+                <div class="nav-item">
+                    <a class="nav-link smooth-scroll" href="#contact">contact</a>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -221,12 +60,11 @@
     <div class="container-fluid" id="projects">
         <h1>projects</h1>
         <br>
-        <div class="container-fluid" style="background-color: rgba(12, 12, 12, 0.653);">
+        <div class="container-fluid text-section" id="balloonium">
             <h2>Balloonium</h2>
             <p>
-                Physics based game where you play as a balloon trying to escape a cave. This game got its start as a team project for UBC's CPSC 
-                427 video game programming course. My team and I have since decided to continue working on the game and are aiming to release it 
-                some time in early 2025.
+                Balloonium is a whimsical physics based game where you play as a balloon trying to escape a cave. It got its start as a team project for UBC's CPSC 
+                427 video game programming course. My team and I have since decided to continue working on it and are aiming for a release some time in early 2025.
             </p>
             <div class="gallery-item-full">
                 <div class="video-container">
@@ -235,75 +73,187 @@
             </div>
             <br>
             <h4>Procedural level generation and asset placement</h4>
-            <p>Generate level gridmap using WFC</p>
+            <p>
+                Below are details on our game's level generation pipeline. We use wave function collapse to generate our raw level gridmap data, using 
+                the green colour channel to represent walls, red to represent wall hazards (like stalactites, mud bubbles and spiders) and black for 
+                empty space. Using WFC allows us to loosely specify the style and shape of levels we want. The input images are created using MSPaint.
+            </p>
             <div class="gallery">
                 <div class="gallery-item-quarter">
                     <img src="assets/input-example.png" style="image-rendering: pixelated; image-rendering: crisp-edges;">
+                    <div class="gallery-caption">
+                        WFC input image
+                    </div>
                 </div>
                 <div class="gallery-item-quarter">
                     <img src="assets/raw-gridmap.png" style="image-rendering: pixelated; image-rendering: crisp-edges;">
+                    <div class="gallery-caption">
+                        Generated WFC output
+                    </div>
                 </div>
                 <div class="gallery-item-quarter">
                     <img src="assets/gridmap-data-pre.png">
+                    <div class="gallery-caption">
+                        Converted level gridmap data with outer walls added
+                    </div>
                 </div>
                 <div class="gallery-item-quarter">
                     <img src="assets/gridmap-data-post.png">
+                    <div class="gallery-caption">
+                        Level gridmap after small rooms have been culled
+                    </div>
                 </div>
             </div>
-            <p>Draw tunnels on level gridmap, then use marching squares to place level tiles (two different styles).</p>
+            <p>
+                We use flood fill to find all the rooms in the grid, then we proceed to fill all the rooms below a certain size threshold and create a 
+                bi-directional graph for the remaining rooms, computing the distance between each pair. Using this graph, the rooms are connected 
+                either using Kruskal's or a variation of travelling salesman--the latter only when there are fewer than 11 rooms. We can assume the example above 
+                used the  travelling salesman variation as the rooms are connected along a nice, linear path. Next, level generation finds the 'best level path' 
+                (essentially just the longest level path between two corners of the level grid), draws our level start and finish tunnels and performs tiling using 
+                marching squares.
+            </p>
             <div class="gallery">
                 <div class="gallery-item-half">
                     <img src="assets/tiled-stone.png">
+                    <div class="gallery-caption">
+                        The result of tiling with our stone tiles.
+                    </div>
                 </div>
                 <div class="gallery-item-half">
                     <img src="assets/tiled-void.png">
+                    <div class="gallery-caption">
+                        The same level with void tiles.
+                    </div>
                 </div>
             </div>
-            <p>Place assets: enemies, obstacles, resources and interaction zones; and add parallax background.</p>
+            <p>
+                With the design complete, level generation places the remaining game assets: enemies, static hazards, gas vents and other player interaction zones.
+                This is done  iteratively over 5 consecutive passes with different asset-placer classes to encapsulate the different types of objects that they place. 
+                One of the most interesting passes is dead-end asset placement, which uses A* pathfinding to find all the dead ends in our levels and place
+                dead end interaction zones and gas vents to help the player if they get lost. Finally, we add our parallax background and the level is complete!
+            </p>
             <div class="gallery">
                 <div class="gallery-item-half">
                     <img src="assets/level-final-stone.png">
+                    <div class="gallery-caption">
+                        Debug view of stone level with bats, mud bubbles, stalactites, dead end zones, gas vents and a spider, whose audio trigger zone you can see in green.
+                    </div>
                 </div>
                 <div class="gallery-item-half">
                     <img src="assets/level-final-void.png">
+                    <div class="gallery-caption">
+                        The same level in void style. Generic triggers and colliders are outlined in yellow.
+                    </div>
                 </div>
+            </div>
+            <p>
+                Level generation runs in anywhere from 0.5-4s, and even longer on older hardware, so it was necessary to run it in parallel with our core game loop. The 
+                process is triggered once a player reaches the end a level, and is performed on a separate thread so that we can fade out smoothly and display a loading 
+                animation. I discovered c++ promises while building this system, which was a convenient way to transfer level data from the generation thread back to main.
+            </p>
+            <h4>Audio system and sound design</h4>
+            <p>
+                Balloonium includes a configurable audio system for triggering a variety of different sound effects and music. The system handles directional audio and
+                passively-triggered ambient sound effects. It also offers random sample cycling and multi-voice one shotplayback for groups of samples. Sound effects consist of
+                home-recorded foley (spider and balloon), software synthesizers (used for fairy lights, checkpoints) and downloaded samples from freesound.org. All sound effects were
+                editied and mixed in ableton live 10. The music is my own original work, also produced with ableton.
+                <br>
+                <br>
+                The following video demonstrates many of the game's sound interactions with the player.
+            </p>
+            <div class="gallery-item-full">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/u6FdbQ7D8PU" frameborder="0" allowfullscreen=""></iframe>
+                </div>
+            </div>
+            <br>
+            <p>
+                The level checkpoint sound and particle effect is one of my favourites.
+            </p>
+            <div class="container" style="text-align: center; width: 100%;">
+                <img src="assets/checkpoint-example.gif" style="max-width: 400px;">
             </div>
             <br>
         </div>
         <br>
-        <div class="container-fluid" style="background-color: rgba(23, 23, 23, 0.447);">
-            <h2>repo riot</h2>
-            <p>Global Game Jam 2024 submission. Game overview and playable demo available via the link below.</p>
-            <div class="button-container">
-                <a href="https://usualvirtue.itch.io/reporiot" class="button-image"></a>
+        <div class="project-section">
+            <div class="container-fluid text-section" id="reporiot">
+                <h2>Repo Riot</h2>
+                <p>
+                    Global Game Jam 2024 submission built with Unity. Game overview and playable demo available via the link below.
+                </p>
+                <div class="button-container">
+                    <a href="https://usualvirtue.itch.io/reporiot" class="button-image"></a>
+                </div>
+                <p>
+                    The game jam theme was 'make me laugh'. After much humming and hawwing, we decided to do a low-poly repossession sim where the repo man has one arm with a 
+                    flaily sticky hand, inspired by the popular sticky hand toy from the 90s. You raid a debtors house and collect as many valuable items as you can, which form
+                    an ever-growing cluster around the main character's hand in the style of Katamari Damacy.
+                </p>
+                <div class="gallery">
+                    <div class="gallery-item-half">
+                        <img src="assets/repo-riot-2.gif" style="image-rendering: pixelated; image-rendering: crisp-edges;">
+                        <div class="gallery-caption">
+                            Stealing the christmas tree.
+                        </div>
+                    </div>
+                    <div class="gallery-item-half">
+                        <img src="assets/repo-riot-1.gif" style="image-rendering: pixelated; image-rendering: crisp-edges;">
+                        <div class="gallery-caption">
+                            Cashing in a medium-sized item cluster.
+                        </div>
+                    </div>
+                </div>
+                <br>
             </div>
-            <br>
         </div>
         <br>
-        <div class="container-fluid" style="background-color: rgba(23, 23, 23, 0.447);">
-            <h2>trypdeck</h2>
-            <p>Interactive art installation</p>
-            <div class="gallery">
-                <div class="gallery-item-full">
-                    <img src="assets/trypdeck.png">
+        <div class="project-section">
+            <div class="container-fluid text-section" id="trypdeck">
+                <h2>Trypdeck</h2>
+                <p>
+                    Trypdeck is an interactive art installation which has now travelled to four festivals around BC. It features 3000 Apa102 RGB leds and 3 1080p displays,
+                    all controlled by three connected rpi zero 2 w's. Connected to the top of the sculpture are three chains, which when pulled trigger a lighting animation
+                    on the main led grids and reveal a tarot-inspired fortune card on the displays. Led lighting animations were produced by
+                    <a href="https://www.instagram.com/folxlore/">Tim Laks</a>, the cards were designed by Regina artist <a href="https://www.instagram.com/archaicall">Beki Stilborn</a>
+                    and the sculture itself was designed and built by Vancouver metal worked and artist <a href="https://www.instagram.com/ingotvein/">Trent Kampel-Sierolawski</a>
+                    <br>
+                    <br>
+                    Github repo <a href="https://github.com/cosparks/trypdeck">here</a>.
+                </p>
+                <div class="gallery">
+                    <div class="gallery-item-full">
+                        <img src="assets/trypdeck.png">
+                    </div>
                 </div>
+                <br>
             </div>
-            <br>
         </div>
     </div>
     <br>
     <!-- ABOUT -->
     <div class="container-fluid" style="min-height:100vh;" id="about">
         <h2>about</h2>
+        <div class="container-fluid text-section">
+            <p>
+                Software engineer and game dev born and raised in Vancouver, BC. I spent years making and performing electronic music in and around the west coast before 
+                moving to Montreal, where I learned to speak French and acquired a degree in linguistics from Concordia University. After graduating, I began to dabble in video 
+                game programming and was soon convinced that this was the career path for me. After returning to Vancouver, I pursued studies in computer science at UBC, officially 
+                graduating May of 2024 from UBC's bachelor of computer science 2nd degree program.
+            </p>
+            <br>
+        </div>
     </div>
     <div class="container-fluid" id="contact">
         <h2>contact</h2>
-        <div class="container-fluid" style="min-height:50vh; background-color: rgba(0, 0, 0, 0.132);">
+        <div class="container-fluid text-section" style="min-height:50vh;">
             
         </div>
     </div>
   </div>
   <canvas></canvas>
+  <!-- LINK TO TOP OF PAGE -->
+  <a href="#" class="fixed-top-link">Back to Top</a>
 <!-- SHADERS -->
 <script id="normalVertexShader" type="x-shader/x-vertex">
     precision highp float;

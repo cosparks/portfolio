@@ -24,6 +24,7 @@ module.exports = {
         new CopyPlugin({
           patterns: [
             { from: "src/assets/", to: "assets/" },
+            { from: "src/style.css", to: "./" },
           ],
           options: {
             concurrency: 100,

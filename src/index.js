@@ -119,28 +119,8 @@ var negxTexture = textureLoader.load( "./assets/space-negx.png" );
 var negyTexture = textureLoader.load( "./assets/space-negy.png" );
 var negzTexture = textureLoader.load( "./assets/space-negz.png" );
 
-// adapt to window resize
-function resize() {
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  camera.aspect = window.innerWidth / window.innerHeight;
-  target.setSize(window.innerWidth, window.innerHeight);
-  camera.updateProjectionMatrix();
-}
-
-// event listener
-window.addEventListener('resize',resize);
-resize();
-
-// disable scrollbar
-// window.onscroll = function () {
-//   window.scrollTo(0,0);
-// }
-
 //////////////////////////////////////////////////////////////////////
 //  shader materials
-
-// scene
-
 var waterMaterial = new THREE.ShaderMaterial( {
   uniforms: {
     time: { value: time },
@@ -296,6 +276,41 @@ function onDocumentKeyDown(event) {
       sunPosWcs.x += xSpeed;
     }
 };
+
+// adapt to window resize
+
+
+window.addEventListener('resize', function resize() {
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.aspect = window.innerWidth / window.innerHeight;
+  target.setSize(window.innerWidth, window.innerHeight);
+  camera.updateProjectionMatrix();
+});
+
+// set up smooth scroll
+document.addEventListener('DOMContentLoaded', function() {
+  var smoothScrollLinks = document.querySelectorAll('.smooth-scroll');
+  
+  for (var i = 0; i < smoothScrollLinks.length; i++) {
+      smoothScrollLinks[i].addEventListener('click', function(event) {
+          event.preventDefault();
+          var targetId = this.getAttribute('href').substring(1);
+          var targetElement = document.getElementById(targetId);
+          targetElement.scrollIntoView({
+              behavior: 'smooth'
+          });
+      });
+  }
+  var topLink = document.querySelector('.fixed-top-link');
+  
+  topLink.addEventListener('click', function(event) {
+      event.preventDefault();
+      window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+      });
+  });
+});
 
 function updateSceneUniforms() {
   time = clock.getElapsedTime();
