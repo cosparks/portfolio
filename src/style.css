@@ -15,7 +15,7 @@ text {
 }
 a {
     /* opacity: 0.5 */
-    color: rgb(210, 210, 210);
+    color: rgb(150, 150, 150);
 }
 a:hover {
     color: white;
@@ -34,23 +34,23 @@ a.btn:hover {
 h1 {
     font-weight: normal;
     font-style: normal;
-    color: rgb(210, 210, 210);
+    color: rgb(200, 200, 200);
     justify-content: center;
 }
 h2 {
     font-weight: normal;
     font-style: normal;
-    color: rgb(210, 210, 210);
+    color: rgb(200, 200, 200);
     justify-content: center;
 }
 h3 {
-    color: rgb(210, 210, 210);
+    color: rgb(200, 200, 200);
 }
 h4 {
-    color: rgb(210, 210, 210);
+    color: rgb(200, 200, 200);
 }
 p {
-    color: rgb(210, 210, 210);
+    color: rgb(200, 200, 200);
 }
 .btn  {
     color: black;
@@ -186,7 +186,7 @@ p {
 }
 
 .dropdown .dropbtn {
-    color: rgb(210, 210, 210);
+    color: rgb(200, 200, 200);
     background-color: #3e8e4100;
     border: 0px;
 }

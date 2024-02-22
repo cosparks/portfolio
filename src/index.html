@@ -127,7 +127,7 @@
                 </div>
             </div>
             <p>
-                With the design complete, level generation places the remaining game assets: enemies, static hazards, gas vents and other player interaction zones.
+                With the level's shape determined, level generation places the remaining game assets: enemies, static hazards, gas vents and other player interaction zones.
                 This is done  iteratively over 5 consecutive passes with different asset-placer classes to encapsulate the different types of objects that they place. 
                 One of the most interesting passes is dead-end asset placement, which uses A* pathfinding to find all the dead ends in our levels and place
                 dead end interaction zones and gas vents to help the player if they get lost. Finally, we add our parallax background and the level is complete!
@@ -147,7 +147,7 @@
                 </div>
             </div>
             <p>
-                Level generation runs in anywhere from 0.5-4s, and even longer on older hardware, so it was necessary to run it in parallel with our core game loop. The 
+                Level generation takes anywhere from 0.5-5s to complete (and even longer on older hardware), so it was necessary to run it in parallel with our core game loop. The 
                 process is triggered once a player reaches the end a level, and is performed on a separate thread so that we can fade out smoothly and display a loading 
                 animation. I discovered c++ promises while building this system, which was a convenient way to transfer level data from the generation thread back to main.
             </p>
@@ -212,7 +212,7 @@
             <div class="container-fluid text-section" id="trypdeck">
                 <h2>Trypdeck</h2>
                 <p>
-                    Trypdeck is an interactive art installation which has now travelled to four festivals around BC. It features 3000 Apa102 RGB leds and 3 1080p displays,
+                    Trypdeck is an interactive art installation which has now travelled to four festivals around western Canada. It features 3000 Apa102 RGB leds and 3 720p displays,
                     all controlled by three connected rpi zero 2 w's. Connected to the top of the sculpture are three chains, which when pulled trigger a lighting animation
                     on the main led grids and reveal a tarot-inspired fortune card on the displays. Led lighting animations were produced by
                     <a href="https://www.instagram.com/folxlore/">Tim Laks</a>, the cards were designed by Regina artist <a href="https://www.instagram.com/archaicall">Beki Stilborn</a>
@@ -236,18 +236,17 @@
         <h2>about</h2>
         <div class="container-fluid text-section">
             <p>
-                Software engineer and game dev born and raised in Vancouver, BC. I spent years making and performing electronic music in and around the west coast before 
-                moving to Montreal, where I learned to speak French and acquired a degree in linguistics from Concordia University. After graduating, I began to dabble in video 
-                game programming and was soon convinced that this was the career path for me. After returning to Vancouver, I pursued studies in computer science at UBC, officially 
-                graduating May of 2024 from UBC's bachelor of computer science 2nd degree program.
+                I am a software engineer, game dev and sound designer born and raised in Vancouver, BC.
             </p>
-            <br>
         </div>
     </div>
     <div class="container-fluid" id="contact">
         <h2>contact</h2>
-        <div class="container-fluid text-section" style="min-height:50vh;">
-            
+        <div class="container-fluid text-section" style="min-height: 20vh; text-align: center;">
+            <a href="https://www.linkedin.com/in/colby-sparks-24452522a/">linkedin</a>
+            <br>
+            <br>
+            <img src="assets/email-aberrated.png" style="image-rendering: pixelated; image-rendering: crisp-edges; max-width: 300px; border-radius: 6px;">
         </div>
     </div>
   </div>
