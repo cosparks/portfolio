@@ -1,5 +1,5 @@
 #!/bin/sh
 
-sudo rm -rf /var/www/html
-mv ./dist ./html
-sudo mv html /var/www/
+npm run build
+sudo docker build -t mynginx .
+sudo docker run -d -p 8080:80 mynginx
