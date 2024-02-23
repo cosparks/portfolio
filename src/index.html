@@ -63,8 +63,9 @@
         <div class="container-fluid text-section" id="balloonium">
             <h2>Balloonium</h2>
             <p>
-                Balloonium is a whimsical physics based game where you play as a balloon trying to escape a cave. It got its start as a team project for UBC's CPSC 
-                427 video game programming course. My team and I have since decided to continue working on it and are aiming for a release some time in early 2025.
+                Balloonium is a 2d physics based game where you play as a balloon trying to escape a procedurally generated cave system. It got its start as a team project for UBC's CPSC 
+                427 video game programming course. My team and I have since decided to continue working on it and are aiming for a release some time in early 2025. Below are details on our game's
+                level generation pipeline and audio system.
             </p>
             <div class="gallery-item-full">
                 <div class="video-container">
@@ -74,7 +75,7 @@
             <br>
             <h4>Procedural level generation and asset placement</h4>
             <p>
-                Below are details on our game's level generation pipeline. We use wave function collapse to generate our raw level gridmap data, using 
+                Level generation begins by running wave function collapse to generate our raw level gridmap data. The input image uses 
                 the green colour channel to represent walls, red to represent wall hazards (like stalactites, mud bubbles and spiders) and black for 
                 empty space. Using WFC allows us to loosely specify the style and shape of levels we want. The input images are created using MSPaint.
             </p>
@@ -105,11 +106,10 @@
                 </div>
             </div>
             <p>
-                We use flood fill to find all the rooms in the grid, then we proceed to fill all the rooms below a certain size threshold and create a 
+                We use flood fill to find all the rooms in the grid, then proceed to fill all the rooms below a certain size threshold and create a 
                 bi-directional graph for the remaining rooms, computing the distance between each pair. Using this graph, the rooms are connected 
-                either using Kruskal's or a variation of travelling salesman--the latter only when there are fewer than 11 rooms. We can assume the example above 
-                used the  travelling salesman variation as the rooms are connected along a nice, linear path. Next, level generation finds the 'best level path' 
-                (essentially just the longest level path between two corners of the level grid), draws our level start and finish tunnels and performs tiling using 
+                either using Kruskal's or a variation of travelling salesman--the latter only when there are fewer than 11 rooms.  Next, level generation finds the 'best level path' 
+                (essentially just the longest level path between two corners of the level grid), draws our level start and finish tunnels and places styled tiles using 
                 marching squares.
             </p>
             <div class="gallery">
@@ -127,8 +127,8 @@
                 </div>
             </div>
             <p>
-                With the level's shape determined, level generation places the remaining game assets: enemies, static hazards, gas vents and other player interaction zones.
-                This is done  iteratively over 5 consecutive passes with different asset-placer classes to encapsulate the different types of objects that they place. 
+                With the level's shape determined, level generation places the remaining game assets: enemies, static hazards, gas vents and other interaction zones.
+                This is done iteratively over 5 consecutive passes with different asset placer classes to encapsulate the different types of objects that they place. 
                 One of the most interesting passes is dead-end asset placement, which uses A* pathfinding to find all the dead ends in our levels and place
                 dead end interaction zones and gas vents to help the player if they get lost. Finally, we add our parallax background and the level is complete!
             </p>
@@ -147,16 +147,17 @@
                 </div>
             </div>
             <p>
-                Level generation takes anywhere from 0.5-5s to complete (and even longer on older hardware), so it was necessary to run it in parallel with our core game loop. The 
+                Level generation takes anywhere from 0.5-5s (and even longer on older hardware), so it is necessary to run it in parallel with our core game loop. The 
                 process is triggered once a player reaches the end a level, and is performed on a separate thread so that we can fade out smoothly and display a loading 
                 animation. I discovered c++ promises while building this system, which was a convenient way to transfer level data from the generation thread back to main.
             </p>
             <h4>Audio system and sound design</h4>
             <p>
                 Balloonium includes a configurable audio system for triggering a variety of different sound effects and music. The system handles directional audio and
-                passively-triggered ambient sound effects. It also offers random sample cycling and multi-voice one shotplayback for groups of samples. Sound effects consist of
-                home-recorded foley (spider and balloon), software synthesizers (used for fairy lights, checkpoints) and downloaded samples from freesound.org. All sound effects were
-                editied and mixed in ableton live 10. The music is my own original work, also produced with ableton.
+                passively-triggered ambient sound effects. It also offers random sample cycling and multi-voice one shot playback for groups of samples. Sound effects consist of
+                home-recorded foley (spider and balloon), software synthesizers (used for fairy lights and checkpoints) and downloaded samples from 
+                <a href="https://freesound.org">freesound.org</a>. All sound effects were edited and mixed in ableton live 10. The music is my own original work,
+                also produced with ableton.
                 <br>
                 <br>
                 The following video demonstrates many of the game's sound interactions with the player.
@@ -185,6 +186,7 @@
                 <div class="button-container">
                     <a href="https://usualvirtue.itch.io/reporiot" class="button-image"></a>
                 </div>
+                <br>
                 <p>
                     The game jam theme was 'make me laugh'. After much humming and hawwing, we decided to do a low-poly repossession sim where the repo man has one arm with a 
                     flaily sticky hand, inspired by the popular sticky hand toy from the 90s. You raid a debtors house and collect as many valuable items as you can, which form
@@ -212,9 +214,9 @@
             <div class="container-fluid text-section" id="trypdeck">
                 <h2>Trypdeck</h2>
                 <p>
-                    Trypdeck is an interactive art installation which has now travelled to four festivals around western Canada. It features 3000 Apa102 RGB leds and 3 720p displays,
+                    Trypdeck is an interactive art installation which has now travelled to four festivals around western Canada. It features 3000 Apa-102 RGB leds and 3 720p displays,
                     all controlled by three connected rpi zero 2 w's. Connected to the top of the sculpture are three chains, which when pulled trigger a lighting animation
-                    on the main led grids and reveal a tarot-inspired fortune card on the displays. Led lighting animations were produced by
+                    on the main led grids and reveal a tarot card inspired animation on the displays. Led lighting animations were produced by
                     <a href="https://www.instagram.com/folxlore/">Tim Laks</a>, the cards were designed by Regina artist <a href="https://www.instagram.com/archaicall">Beki Stilborn</a>
                     and the sculture itself was designed and built by Vancouver metal worked and artist <a href="https://www.instagram.com/ingotvein/">Trent Kampel-Sierolawski</a>
                     <br>
