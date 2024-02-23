@@ -14,8 +14,9 @@
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="./style.css">
-<script defer src="bundle.js?9f7900e3543c968bc13e"></script></head>
+<script defer src="bundle.js?dadfac8bc6d73e6249de"></script></head>
 <body>
 <div class="container-fluid pt-3" id="top">
     <div class="row">
@@ -63,8 +64,9 @@
         <div class="container-fluid text-section" id="balloonium">
             <h2>Balloonium</h2>
             <p>
-                Balloonium is a whimsical physics based game where you play as a balloon trying to escape a cave. It got its start as a team project for UBC's CPSC 
-                427 video game programming course. My team and I have since decided to continue working on it and are aiming for a release some time in early 2025.
+                Balloonium is a 2d physics based game where you play as a balloon trying to escape a procedurally generated cave system. It got its start as a team project for UBC's CPSC 
+                427 video game programming course. My team and I have since decided to continue working on it and are aiming for a release some time in early 2025. Below are details on our game's
+                level generation pipeline and audio system.
             </p>
             <div class="gallery-item-full">
                 <div class="video-container">
@@ -74,7 +76,7 @@
             <br>
             <h4>Procedural level generation and asset placement</h4>
             <p>
-                Below are details on our game's level generation pipeline. We use wave function collapse to generate our raw level gridmap data, using 
+                Level generation begins by running wave function collapse to generate our raw level gridmap data. The input image uses 
                 the green colour channel to represent walls, red to represent wall hazards (like stalactites, mud bubbles and spiders) and black for 
                 empty space. Using WFC allows us to loosely specify the style and shape of levels we want. The input images are created using MSPaint.
             </p>
@@ -105,11 +107,10 @@
                 </div>
             </div>
             <p>
-                We use flood fill to find all the rooms in the grid, then we proceed to fill all the rooms below a certain size threshold and create a 
+                We use flood fill to find all the rooms in the grid, then proceed to fill all the rooms below a certain size threshold and create a 
                 bi-directional graph for the remaining rooms, computing the distance between each pair. Using this graph, the rooms are connected 
-                either using Kruskal's or a variation of travelling salesman--the latter only when there are fewer than 11 rooms. We can assume the example above 
-                used the  travelling salesman variation as the rooms are connected along a nice, linear path. Next, level generation finds the 'best level path' 
-                (essentially just the longest level path between two corners of the level grid), draws our level start and finish tunnels and performs tiling using 
+                either using Kruskal's or a variation of travelling salesman--the latter only when there are fewer than 11 rooms.  Next, level generation finds the 'best level path' 
+                (essentially just the longest level path between two corners of the level grid), draws our level start and finish tunnels and places styled tiles using 
                 marching squares.
             </p>
             <div class="gallery">
@@ -127,8 +128,8 @@
                 </div>
             </div>
             <p>
-                With the level's shape determined, level generation places the remaining game assets: enemies, static hazards, gas vents and other player interaction zones.
-                This is done  iteratively over 5 consecutive passes with different asset-placer classes to encapsulate the different types of objects that they place. 
+                With the level's shape determined, level generation places the remaining game assets: enemies, static hazards, gas vents and other interaction zones.
+                This is done iteratively over 5 consecutive passes with different asset placer classes to encapsulate the different types of objects that they place. 
                 One of the most interesting passes is dead-end asset placement, which uses A* pathfinding to find all the dead ends in our levels and place
                 dead end interaction zones and gas vents to help the player if they get lost. Finally, we add our parallax background and the level is complete!
             </p>
@@ -147,16 +148,17 @@
                 </div>
             </div>
             <p>
-                Level generation takes anywhere from 0.5-5s to complete (and even longer on older hardware), so it was necessary to run it in parallel with our core game loop. The 
+                Level generation takes anywhere from 0.5-5s (and even longer on older hardware), so it is necessary to run it in parallel with our core game loop. The 
                 process is triggered once a player reaches the end a level, and is performed on a separate thread so that we can fade out smoothly and display a loading 
                 animation. I discovered c++ promises while building this system, which was a convenient way to transfer level data from the generation thread back to main.
             </p>
             <h4>Audio system and sound design</h4>
             <p>
                 Balloonium includes a configurable audio system for triggering a variety of different sound effects and music. The system handles directional audio and
-                passively-triggered ambient sound effects. It also offers random sample cycling and multi-voice one shotplayback for groups of samples. Sound effects consist of
-                home-recorded foley (spider and balloon), software synthesizers (used for fairy lights, checkpoints) and downloaded samples from freesound.org. All sound effects were
-                editied and mixed in ableton live 10. The music is my own original work, also produced with ableton.
+                passively-triggered ambient sound effects. It also offers random sample cycling and multi-voice one shot playback for groups of samples. Sound effects consist of
+                home-recorded foley (spider and balloon), software synthesizers (used for fairy lights and checkpoints) and downloaded samples from 
+                <a href="https://freesound.org">freesound.org</a>. All sound effects were edited and mixed in ableton live 10. The music is my own original work,
+                also produced with ableton.
                 <br>
                 <br>
                 The following video demonstrates many of the game's sound interactions with the player.
@@ -185,6 +187,7 @@
                 <div class="button-container">
                     <a href="https://usualvirtue.itch.io/reporiot" class="button-image"></a>
                 </div>
+                <br>
                 <p>
                     The game jam theme was 'make me laugh'. After much humming and hawwing, we decided to do a low-poly repossession sim where the repo man has one arm with a 
                     flaily sticky hand, inspired by the popular sticky hand toy from the 90s. You raid a debtors house and collect as many valuable items as you can, which form
@@ -212,9 +215,9 @@
             <div class="container-fluid text-section" id="trypdeck">
                 <h2>Trypdeck</h2>
                 <p>
-                    Trypdeck is an interactive art installation which has now travelled to four festivals around western Canada. It features 3000 Apa102 RGB leds and 3 720p displays,
+                    Trypdeck is an interactive art installation which has now travelled to four festivals around western Canada. It features 3000 Apa-102 RGB leds and 3 720p displays,
                     all controlled by three connected rpi zero 2 w's. Connected to the top of the sculpture are three chains, which when pulled trigger a lighting animation
-                    on the main led grids and reveal a tarot-inspired fortune card on the displays. Led lighting animations were produced by
+                    on the main led grids and reveal a tarot card inspired animation on the displays. Led lighting animations were produced by
                     <a href="https://www.instagram.com/folxlore/">Tim Laks</a>, the cards were designed by Regina artist <a href="https://www.instagram.com/archaicall">Beki Stilborn</a>
                     and the sculture itself was designed and built by Vancouver metal worked and artist <a href="https://www.instagram.com/ingotvein/">Trent Kampel-Sierolawski</a>
                     <br>
@@ -254,332 +257,5 @@
   <!-- LINK TO TOP OF PAGE -->
   <a href="#" class="fixed-top-link">Back to Top</a>
 <!-- SHADERS -->
-<script id="normalVertexShader" type="x-shader/x-vertex">
-    precision highp float;
-    
-    out vec3 worldNormal;
-    out vec3 vcsNormal;
-    out vec3 vcsPosition;
-
-    uniform float time;
-
-    void main()
-    {
-        vec4 mvPosition = modelViewMatrix * vec4( position, 1.0 );
-        vcsPosition = mvPosition.xyz;
-        vcsNormal = normalMatrix * normal;
-        worldNormal = normal;
-        gl_Position = projectionMatrix * mvPosition;
-    }
-</script>
-
-<script id="fractalVertexShader" type="x-shader/x-vertex">
-    precision highp float;
-
-    out vec3 vcsNormal;
-    out vec3 vcsPosition;
-
-    uniform float time;
-    
-    const float speed = 2.0;
-    const float heightOffset = 0.1;
-
-    void main()
-    {
-        float dist = sqrt(pow(position.x, 2.0) + pow(position.z, 2.0));
-        float timeVal1 = time * speed;
-        float sinValY = sin(timeVal1 + dist);
-        vec3 pos = vec3(position.x, position.y + sinValY * heightOffset, position.z);
-        
-        vcsPosition = (modelViewMatrix * vec4(pos, 1.0)).xyz;
-
-        // compute varying normal
-        float partialCos = heightOffset * cos(timeVal1 + dist);
-        vec3 tangent = vec3(0, partialCos * position.z / dist, 1);
-        vec3 binormal = vec3(1, partialCos * position.x / dist, 0);
-        vcsNormal = normalMatrix * normalize(cross(tangent, binormal));
-        
-        vec4 mvPosition = modelViewMatrix * vec4( pos, 1.0 );
-        gl_Position = projectionMatrix * mvPosition;
-    }
-</script>
-
-<script id="waterVertexShader" type="x-shader/x-vertex">
-    precision highp float;
-
-    out vec3 vcsNormal;
-    out vec3 vcsPosition;
-    out vec3 worldPosition;
-
-    uniform float time;
-    uniform int numWaves;
-    uniform vec2 waveDirections[50];
-
-    const float a0 = 5.0;
-    const float w0 = 2.0 / 100.0 * 3.14;
-    const float phi = 20.0 * w0;
-
-    // const float amplitudeFactor = 0.7;
-    const float amplitudeFactor = 0.6;
-    const float frequencyFactor = 1.3;
-
-    void main()
-    {
-        float posY = position.y;
-        float partialX = 0.0;
-        float partialZ = 0.0;
-        float ai = a0;
-        float wi = w0;
-        float phii = phi;
-        float prevPartialX = 0.0;
-        float prevPartialZ = 0.0;
-        vec3 pushedPos = position;
-        
-        int iterations = min(numWaves, 50);
-        for (int i = 0; i < iterations; i++) {
-            // pushedPos += vec3(prevPartialX, 0.0, prevPartialZ);
-            vec2 di = normalize(waveDirections[i]);
-            // posY += ai * sin(wi * dot(di, pushedPos.xz)  + time * phii );
-            float curY = ai * exp(sin(wi * dot(di, pushedPos.xz) + time * phii) - 1.0);
-            posY += curY;
-
-            // compute normal                  
-            prevPartialX = wi * di.x * curY * cos(wi * dot(di, pushedPos.xz) + time * phii);
-            prevPartialZ = wi * di.y * curY * cos(wi * dot(di, pushedPos.xz) + time * phii);
-            partialX += prevPartialX;
-            partialZ += prevPartialZ;
-
-            ai *= amplitudeFactor;
-            wi *= frequencyFactor;
-            phii *= 1.05;
-        }
-        
-        vec3 pos = vec3(position.x, posY, position.z);
-        vcsPosition = (modelViewMatrix * vec4(pos, 1.0)).xyz;
-        vec3 tangent = vec3(0, partialZ, 1);
-        vec3 binormal = vec3(1, partialX, 0);
-        vcsNormal = normalMatrix * normalize(cross(tangent, binormal));
-        worldPosition = (modelMatrix * vec4(pos, 1.0)).xyz;
-        
-        vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
-        gl_Position = projectionMatrix * mvPosition;
-    }
-</script>
-
-<script id="waterFragmentShader" type="x-shader/x-fragment">
-    in vec3 vcsNormal;
-    in vec3 vcsPosition;
-    in vec3 worldPosition;
-
-    uniform float time;
-    uniform vec3 vcsPositionSun;
-    uniform vec3 sunColour;
-    uniform vec3 vcsPositionStar1;
-    uniform vec3 colourStar1;
-    uniform vec3 vcsPositionStar2;
-    uniform vec3 colourStar2;
-    uniform vec3 vcsPositionStar3;
-    uniform vec3 colourStar3;
-    uniform vec3 waterColour;
-    uniform vec3 ambientColour;
-    uniform vec3 diffuseColour;
-    
-    // skybox
-    uniform sampler2D uPosxTexture;
-    uniform sampler2D uPosyTexture;
-    uniform sampler2D uPoszTexture;
-    uniform sampler2D uNegxTexture;
-    uniform sampler2D uNegyTexture;
-    uniform sampler2D uNegzTexture;
-    uniform mat4 inverseViewMatrix;
-    uniform float skyboxSize;
-    uniform float skyboxOffsetY;
-
-    // const float sunDiffuseAmt = 0.5;
-    // const float sunSpecularAmt = 0.8;
-    // const float starDiffuseAmt = 0.1;
-    // const float starSpecularAmt = 0.4;
-
-    const float sunDiffuseAmt = 0.0;
-    const float sunSpecularAmt = 0.4;
-    const float starDiffuseAmt = 0.0;
-    const float starSpecularAmt = 0.2;
-
-    const float specular = 200.0;
-    const vec4 nullVec = vec4(0,0,0,-1);
-
-    vec3 applyLightSource(vec3 vcsPos, vec3 N, vec3 lightColour, float diffuseAmt, float specularAmt) {
-        // diffuse component
-        vec3 L = normalize(vcsPos - vcsPosition);
-        vec3 colour = diffuseAmt * waterColour * lightColour * max(0.0, dot(N, L));
-        
-        // specular component
-        vec3 V = normalize(-vcsPosition.xyz);
-        vec3 R = reflect(-L, N);
-        return colour + specularAmt * lightColour * pow(max(0.0, dot(V,R)), specular);
-    }
-
-    vec4 getSkyboxIntersection(vec4 R, vec4 wcsPos, vec3 wallN, vec3 wallPos) {
-        float dotWall = dot(wallN, R.xyz);
-        if (dotWall == 0.0) {
-            // reflection is orthogonal to wall normal -> no intersection
-            return nullVec;
-        }
-        
-        // find point at which 
-        float tFront = (dot(wallN, wallPos) - dot(wallN, wcsPos.xyz)) / dotWall;
-        if (tFront < 0.0) {
-            return nullVec;
-        }
-        return vec4((wcsPos + tFront * R).xyz, 1.0);
-    }
-
-    vec4 lookupSkyboxTexel(vec3 N) {
-        vec3 I = normalize(vcsPosition);
-        vec3 vcsR = reflect(I, N);
-        vec4 R = inverseViewMatrix * vec4(vcsR, 0.0);
-        vec4 wcsPosition = inverseViewMatrix * vec4(vcsPosition, 1.0);
-        vec4 ret = vec4(0, 0, 0, 1.0);
-
-        // check front intersection
-        vec4 intersection = getSkyboxIntersection(R, wcsPosition, vec3(0,0,1), vec3(0,0,-skyboxSize));
-        float u = (intersection.x / skyboxSize + 1.0) / 2.0;
-        float v = ((intersection.y - skyboxSize - skyboxOffsetY) / skyboxSize + 1.0) / 2.0;
-        if (intersection != nullVec && u >= 0.0 && u <= 1.0 && v >= 0.0 && v <= 1.0) {
-            vec3 colour = texture2D(uNegzTexture, vec2(u,v)).xyz;
-            return vec4(colour, 1.0);
-        }
-        // check top intersection
-        intersection = getSkyboxIntersection(R, wcsPosition, vec3(0,-1,0), vec3(0, 2.0 * skyboxSize + skyboxOffsetY, 0));
-        u = (intersection.x / skyboxSize + 1.0) / 2.0;
-        v = (intersection.z / skyboxSize + 1.0) / 2.0;
-        if (intersection != nullVec && u >= 0.0 && u <= 1.0 && v >= 0.0 && v <= 1.0) {
-            vec3 colour = texture2D(uPosyTexture, vec2(u,v)).xyz;
-            return vec4(colour, 1.0);
-        }
-        // check right intersection
-        intersection = getSkyboxIntersection(R, wcsPosition, vec3(-1,0,0), vec3(skyboxSize, 0, 0));
-        u = (intersection.z / skyboxSize + 1.0) / 2.0;
-        v = ((intersection.y - skyboxSize - skyboxOffsetY) / skyboxSize + 1.0) / 2.0;
-        if (intersection != nullVec && u >= 0.0 && u <= 1.0 && v >= 0.0 && v <= 1.0) {
-            vec3 colour = texture2D(uPosxTexture, vec2(u,v)).xyz;
-            return vec4(colour, 1.0);
-        }
-        // check left intersection
-        intersection = getSkyboxIntersection(R, wcsPosition, vec3(1,0,0), vec3(-skyboxSize, 0, 0));
-        u = 1.0 - (intersection.z / skyboxSize + 1.0) / 2.0;
-        v = ((intersection.y - skyboxSize - skyboxOffsetY) / skyboxSize + 1.0) / 2.0;
-        if (intersection != nullVec && u >= 0.0 && u <= 1.0 && v >= 0.0 && v <= 1.0) {
-            vec3 colour = texture2D(uNegxTexture, vec2(u,v)).xyz;
-            return vec4(colour, 1.0);
-        }
-        // check back intersection
-        intersection = getSkyboxIntersection(R, wcsPosition, vec3(0,0,-1), vec3(0, 0, skyboxSize));
-        u = 1.0 - (intersection.x / skyboxSize + 1.0) / 2.0;
-        v = ((intersection.y - skyboxSize - skyboxOffsetY) / skyboxSize + 1.0) / 2.0;
-        if (intersection != nullVec && u >= 0.0 && u <= 1.0 && v >= 0.0 && v <= 1.0) {
-            vec3 colour = texture2D(uPoszTexture, vec2(u,v)).xyz;
-            return vec4(colour, 1.0);
-        }
-        return ret;
-    }
-
-    void main() {
-        // base ambient component
-        // vec3 color = waterColour * ambientColour * 0.1;
-        vec3 color = vec3(0);
-        vec3 N = normalize(vcsNormal);
-        
-        vec4 texel = lookupSkyboxTexel(N);
-        color += texel.xyz;
-
-        // apply diffuse and specular for all light sources
-        color += applyLightSource(vcsPositionSun, N, sunColour, sunDiffuseAmt, sunSpecularAmt);
-        color += applyLightSource(vcsPositionStar1, N, colourStar1, starDiffuseAmt, starSpecularAmt);
-        color += applyLightSource(vcsPositionStar2, N, colourStar2, starDiffuseAmt, starSpecularAmt);
-        color += applyLightSource(vcsPositionStar3, N, colourStar3, starDiffuseAmt, starSpecularAmt);
-
-        gl_FragColor = vec4(color, 1.0);
-        // gl_FragColor = texel;
-    }
-</script>
-<script id="postVertexShader" type="x-shader/x-vertex">
-    varying vec2 vUv;
-
-    void main() {
-        vUv = uv;
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-</script>
-<script id="postFragmentShader" type="x-shader/x-fragment">
-    #include <packing>
-
-    varying vec2 vUv;
-
-    uniform sampler2D tDiffuse;
-    uniform sampler2D tDepth;
-    uniform mat4 inverseProjectionMatrix;
-    uniform mat4 inverseViewMatrix;
-    uniform float aspectRatio;
-    uniform float cameraNear;
-    uniform float cameraFar;
-
-    // lights
-    uniform vec3 sunPosUv;
-    uniform vec3 sunColour;
-    uniform float sunFocus;
-    uniform vec3 uvPosStar1;
-    uniform vec3 colourStar1;
-    uniform float focusStar1;
-    uniform vec3 uvPosStar2;
-    uniform vec3 colourStar2;
-    uniform float focusStar2;
-    uniform vec3 uvPosStar3;
-    uniform vec3 colourStar3;
-    uniform float focusStar3;
-    uniform vec4 fogColour;
-    uniform float fogDensity;
-    
-    const float sunWidth = 0.02;
-    const float starWidth = 0.0;
-
-    vec4 applyLight(vec2 uvPosLight, float focus, vec3 lightColour, vec4 color, float lightWidth) {
-        vec2 scaledVec = vec2((vUv.x - uvPosLight.x) / aspectRatio, (vUv.y - uvPosLight.y));
-        float dist = length(scaledVec);
-        float lightFactor = 1.0 / pow(2.0, (dist - lightWidth) * focus * focus);
-        return mix(color, vec4(lightColour, 1.0), lightFactor);
-    }
-
-    void main() {
-        //vec3 diffuse = texture2D( tDiffuse, vUv ).rgb;
-        float fragCoordZ = texture2D( tDepth, vUv ).x;
-        float viewZ = perspectiveDepthToViewZ( fragCoordZ, cameraNear, cameraFar );
-        float depth = viewZToOrthographicDepth( viewZ, cameraNear, cameraFar );
-
-        vec4 color = texture2D(tDiffuse, vUv);
-        
-        // get world-space y coordinates of current pixel
-        // vec4 ccsPos = vec4(vUv * 2.0 - 1.0, -cameraNear, 1.0) * (-viewZ / cameraNear);
-        // vec4 worldPos = inverseProjectionMatrix * ccsPos;
-        
-        float fogFactor = 1.0 - 1.0 / pow(2.0, (depth * fogDensity) * (depth * fogDensity));
-        color = mix(color, fogColour, fogFactor);
-
-        // check if sun or star is blocked by waves
-        if (fragCoordZ > uvPosStar1.z) {
-            color = applyLight(uvPosStar1.xy, focusStar1, colourStar1, color, starWidth);
-        }
-        if (fragCoordZ > uvPosStar2.z) {
-            color = applyLight(uvPosStar2.xy, focusStar2, colourStar2, color, starWidth);
-        }
-        if (fragCoordZ > uvPosStar3.z) {
-            color = applyLight(uvPosStar3.xy, focusStar3, colourStar3, color, starWidth);
-        }
-        if (fragCoordZ > sunPosUv.z) {
-            color = applyLight(sunPosUv.xy, sunFocus, sunColour, color, sunWidth);
-        }
-        gl_FragColor = color;
-    }
-</script>
 </body>
 </html>
