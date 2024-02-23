@@ -278,14 +278,14 @@ function onDocumentKeyDown(event) {
 };
 
 // adapt to window resize
-
-
-window.addEventListener('resize', function resize() {
+function resize() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
   target.setSize(window.innerWidth, window.innerHeight);
   camera.updateProjectionMatrix();
-});
+}
+window.addEventListener('resize', resize);
+resize();
 
 // set up smooth scroll
 document.addEventListener('DOMContentLoaded', function() {
