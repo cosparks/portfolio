@@ -120,7 +120,20 @@ var negyTexture = textureLoader.load( "./assets/space-negy.png" );
 var negzTexture = textureLoader.load( "./assets/space-negz.png" );
 
 //////////////////////////////////////////////////////////////////////
-//  shader materials
+//  shaders
+
+// Function to load and parse HTML document
+const htmlContent = await $.ajax({
+  url: 'shaders.html',
+  method: 'GET',
+  dataType: 'html'
+});
+
+const parser = new DOMParser();
+const shaders = parser.parseFromString(htmlContent, 'text/html');
+
+console.log(shaders.getElementById('waterVertexShader'));
+
 var waterMaterial = new THREE.ShaderMaterial( {
   uniforms: {
     time: { value: time },
@@ -147,8 +160,8 @@ var waterMaterial = new THREE.ShaderMaterial( {
     skyboxOffsetY: { value: skyboxOffsetY },
     inverseViewMatrix: { value: camera.matrixWorld }
   },
-	vertexShader: document.getElementById( 'waterVertexShader' ).textContent,
-	fragmentShader: document.getElementById( 'waterFragmentShader' ).textContent
+	vertexShader: shaders.getElementById( 'waterVertexShader' ).textContent,
+	fragmentShader: shaders.getElementById( 'waterFragmentShader' ).textContent
 } );
 
 var sphereMaterial = new THREE.ShaderMaterial( {
@@ -157,14 +170,14 @@ var sphereMaterial = new THREE.ShaderMaterial( {
     vcsPositionSun: { value: vcsPositionSun },
     sunColour: { value: sunColour }
   },
-	vertexShader: document.getElementById( 'normalVertexShader' ).textContent,
-	fragmentShader: document.getElementById( 'waterFragmentShader' ).textContent
+	vertexShader: shaders.getElementById( 'normalVertexShader' ).textContent,
+	fragmentShader: shaders.getElementById( 'waterFragmentShader' ).textContent
 } );
 
 // post-process
 var postMaterial = new THREE.ShaderMaterial( {
-  vertexShader: document.getElementById( 'postVertexShader' ).textContent,
-	fragmentShader: document.getElementById( 'postFragmentShader' ).textContent,
+  vertexShader: shaders.getElementById( 'postVertexShader' ).textContent,
+	fragmentShader: shaders.getElementById( 'postFragmentShader' ).textContent,
   uniforms: {
     tDiffuse: { value: null },
     tDepth: { value: null },
